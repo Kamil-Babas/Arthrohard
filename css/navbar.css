@@ -1,0 +1,129 @@
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.red_color {
+    color: red;
+}
+
+header {
+    background-color: black;
+    min-height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0 0.3rem ;
+}
+
+.toggle_button{
+    color: white;
+    margin-top: 0.4rem;
+    margin-right: 5rem;
+    font-size: 2rem;
+    cursor: pointer;
+    display: none
+}
+
+.toggle_button:hover {
+    color: orange;
+    transition: 1s;
+}
+
+.nav_brand {
+    text-transform: uppercase;
+    color: white;
+    font-size: 2rem;
+    text-decoration: none;
+    margin-left: 2rem;
+}
+
+.nav_menu {
+    display: flex;
+    /* display: none; */
+    gap: 2.2rem;
+    font-size: 1.4rem;
+    font-weight: bolder;
+    margin-right: 5rem;
+}
+
+ul {
+    list-style: none;
+}
+
+.nav_link {
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bolder;
+}
+
+.nav_link:hover {
+    color: orange;
+    font-size: 1.7rem;
+    transition: 1s;
+}
+
+.hamburger_nav {
+    display: none;
+    width: 0%;
+    transition-property: display width;
+    transition-duration: 1s;
+}
+
+.hamburger_nav_menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 12px;
+    font-size: 1.5rem;
+}
+
+
+.hamburger_nav.active {
+    display: block;
+    width: 100%;
+    @starting-style{
+        width: 0%;
+    }
+}
+
+.hamburger_nav_item{
+    /* border: 1px solid red; */
+    width: 100%;
+    text-align: center;
+}
+
+.hamburger_nav_item:hover {
+    background-color: #333;
+    background-color: #666;
+    transition: 0.3s ease-in-out;
+}
+
+
+/* RESPONSIVE DESIGN */
+
+@media (max-width: 768px) {
+    .nav_menu {
+        display: none;
+    } 
+    .toggle_button {
+        display: block;
+    }
+}
+
+@media (min-width: 769px) {
+    .hamburger_nav_menu {
+        display: none;
+    }
+}
