@@ -726,3 +726,31 @@ button {
 .mobile_ingredient_image {
     width: 45%;
 }
+
+
+.dog_container {
+    display: flex;
+    justify-content: center;
+    min-height: 50dvh;
+}
+
+
+.dog_vector {
+    position: relative;
+}
+
+.dog_vector1 {
+    top: 7rem;
+    left: 26rem;
+    z-index: 6;
+}
+
+.dog_image {
+    z-index: 7;
+    object-fit: contain;
+}
+
+.dog_vector2 {
+     top: 3rem;
+    right: 19rem; 
+}
