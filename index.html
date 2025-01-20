@@ -12,6 +12,7 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="javascript/navbar.js" defer></script>
+    <script src="javascript/modal.js" defer></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -140,8 +141,8 @@
                                 <img src="img/ingredient2.png" class="dogs_item" alt="Zdjęcie 1">
                                 <img src="img/ingredient3.png" class="dogs_item" alt="Zdjęcie 1">
 
-
                             </div>
+
                         </div>
 
                         <div class="difference">
@@ -498,7 +499,7 @@
 
             <div class="product_selector">
                 <label for="productCount">Number of products to display</label>
-                <select id="productCount" name="product-count">
+                <select id="productCount" class="product_count" name="product-count">
                   <option value="10">10</option>
                   <option value="20">20</option>
                   <option value="30">30</option>
@@ -509,7 +510,7 @@
             
             <div class="grid_container">
                 
-                <div class="product_from_api">
+                <div class="product_from_api" onclick="openModal()">
                     <div class="api_product_id">
                         1
                     </div>
@@ -544,6 +545,29 @@
         </div>
 
     </section>
+
+    <dialog class="modal" id="modal">
+        
+        <div class="flex_modal_nav">
+            <span id="modal-id">ID: </span>
+            <span id="modal-close-button" class="modal_close_button">X</span>
+        </div>
+
+        <div class="modal_content">
+            
+            <div class="modal_content_row">
+                <strong>Name:</strong>
+                <span class="modal_name" id="modal-name">wdw</span>
+            </div>
+
+            <div class="modal_content_row">
+                <strong>Value:</strong>
+                <span class="modal_value" id="modal-value">dwd</span>
+            </div>
+
+        </div>
+
+    </dialog>
 
 </body>
 
