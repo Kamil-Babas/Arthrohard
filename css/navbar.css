@@ -48,7 +48,6 @@ nav {
 
 .nav_menu {
     display: flex;
-    /* display: none; */
     gap: 2.2rem;
     font-size: 1.4rem;
     font-weight: bolder;
@@ -99,7 +98,6 @@ ul {
 }
 
 .hamburger_nav_item{
-    /* border: 1px solid red; */
     width: 100%;
     text-align: center;
 }
@@ -125,5 +123,12 @@ ul {
 @media (min-width: 769px) {
     .hamburger_nav_menu {
         display: none;
+    }
+}
+
+@media (max-width: 860px){
+    .nav_menu {
+        gap: 1.5rem;
+        margin-right: 2.5rem;
     }
 }

@@ -2,8 +2,11 @@ const gridContainer = document.getElementById('grid_container');
 const productsToDisplayElement = document.getElementById('productsCount');
 let displayCount = productsToDisplayElement.value;
 
+const loaderDiv = document.getElementById('loaderDiv');
+
 // when api doesnt have more data to fetch set it to false;
-let moreData = true;
+let moreDataToFetch = true;
+let dataIsLoading = false;
 let pageNumber = 1;
 let apiUrl = `https://brandstestowy.smallhost.pl/api/random?pageNumber=${pageNumber}&pageSize=${displayCount}`
 
@@ -11,6 +14,7 @@ let apiUrl = `https://brandstestowy.smallhost.pl/api/random?pageNumber=${pageNum
 function changeDisplayCount() {
     displayCount = productsToDisplayElement.value;
     pageNumber = 1;
+    moreDataToFetch = true;
     const updatedApiUrl = `https://brandstestowy.smallhost.pl/api/random?pageNumber=${pageNumber}&pageSize=${displayCount}`;
     fetchData(updatedApiUrl, true)
 }
@@ -21,24 +25,39 @@ productsToDisplayElement.addEventListener('change', changeDisplayCount);
 
 async function fetchData(apiUrl, clearContainerBool) {
 
-    try {
+    try 
+    {
+        if(dataIsLoading === false && moreDataToFetch === true)
+        {
 
-        const response = await fetch(apiUrl);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            dataIsLoading = true;
+            displayLoadingAnimation();
+            const response = await fetch(apiUrl);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+    
+            const data = await response.json();
+            
+            
+            if(data.currentPage === data.totalPages){
+                moreDataToFetch = false;
+            }
+    
+            //clear container because displayCount changed
+            if (clearContainerBool) 
+            {
+                populateGridContainer(data.data, gridContainer, true);
+            }
+            //append Data to container
+            else
+            {
+                populateGridContainer(data.data, gridContainer, false);
+            }
+
         }
-
-        const data = await response.json();
-
-        //clear container because displayCount changed
-        if (clearContainerBool) {
-            populateGridContainer(data.data, gridContainer, clearContainerBool);
-        }
-        //append Data to container
-        else {
-            populateGridContainer(data.data, gridContainer);
-        }
-
+      
     }
 
     catch (error) {
@@ -46,12 +65,19 @@ async function fetchData(apiUrl, clearContainerBool) {
         return;
     }
 
+    finally 
+    {
+        dataIsLoading = false;
+        removeLoadingAnimation();
+        pageNumber += 1;
+    }
+
 }
 
 
 function populateGridContainer(jsonData, dataContainer, clearContainerBool) {
 
-    //clean container because numberOfProducts to display changed
+    //clear container because numberOfProducts to display changed
     if (clearContainerBool) {
         dataContainer.replaceChildren(); // clear container 
 
@@ -59,15 +85,16 @@ function populateGridContainer(jsonData, dataContainer, clearContainerBool) {
             insertProductIntoGrid(dataContainer, product);
         });
 
-        //adds onClick to product that opens modal
+        //adds onClick to products that opens modal
         addEventListenersToProducts();
     }
-    else {
+    else 
+    {
         jsonData.forEach(product => {
             insertProductIntoGrid(dataContainer, product);
         });
 
-        //adds onClick to product that opens modal
+        //adds onClick to products that opens modal
         addEventListenersToProducts();
     }
 
@@ -104,12 +131,28 @@ function addEventListenersToProducts() {
             openModal(product);
         });
     });
-    
+
 }
 
 
+document.addEventListener('scroll', () => {
+
+    const rect = gridContainer.getBoundingClientRect(); // Get the container's position relative to the viewport
+    const windowHeight = window.innerHeight; // Visible part of the viewport
+
+    // Check if the bottom of the container is visible
+    if (rect.bottom <= windowHeight && !dataIsLoading) { 
+        apiUrl = `https://brandstestowy.smallhost.pl/api/random?pageNumber=${pageNumber}&pageSize=${displayCount}`;
+        fetchData(apiUrl, false);
+    }
+});
 
 
-fetchData(apiUrl, false);
 
+function displayLoadingAnimation(){
+    loaderDiv.classList.add('active');
+}
 
+function removeLoadingAnimation(){
+    loaderDiv.classList.remove('active');
+}

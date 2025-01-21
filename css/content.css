@@ -1,6 +1,11 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Hind', sans-serif;
     background-color: #F6F6F6;
+    box-sizing: border-box;
 }
 
 .white_background {
@@ -791,12 +796,11 @@ button {
     justify-content: center;
     align-items: center;
     height: 15dvh;
-    background-color: #f8f8f8;
-    /* Optional: background color for visibility */
     margin: 0;
 }
 
 .loader {
+    display: none;
     border: 16px solid #f3f3f3;
     border-top: 16px solid #3498db;
     border-radius: 50%;
@@ -804,6 +808,11 @@ button {
     height: 4.8rem;
     animation: spin 0.9s linear infinite;
 }
+
+.loader.active {
+    display: block;
+}
+
 
 @keyframes spin {
     0% {
