@@ -932,3 +932,13 @@ body:has(.modal[open]) {
     }
 }
 
+::selection {
+    background-color: #f7d000;
+    color: #000;
+}
+
+.product_from_api:hover {
+    transition: 0.5s;
+    box-shadow: 0 1px 5px 0 orange;
+    transform: scale(90%);
+}
